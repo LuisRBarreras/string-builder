@@ -7,21 +7,24 @@ function StringBuilder(){
 StringBuilder.prototype.cat = function(){
     var buffer = this.buffer;
     concat(...arguments);
-    
-    function concat(a, ...rest) {
-        if(Array.isArray(a)) { 
-            concat(...a);
-        } else if(typeof a === 'function') {
-            concat(a());
-        } else {
-            buffer.push(a);
-        }
-
-        if(rest.length > 0) {
-            concat(rest);
-        }
-    }    
     return this;
+
+    function concat(...args) {
+        let length = args.length;
+        for(let i=0; i<length; i++) {
+            let element = args[i];
+
+            if(Array.isArray(element)) {
+                concat(...element);
+            } else if(typeof element === 'function') {
+                concat(element());
+            } else {
+                buffer.push(element);
+            }
+        }
+    }
 };
 
-return StringBuilder;
+StringBuilder.prototype.string = function() {
+    return this.buffer.join('');
+};

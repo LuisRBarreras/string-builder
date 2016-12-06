@@ -12,7 +12,7 @@ describe('StringBuilder #cat', function() {
 
         sb.cat('Hello', 'CAT');
         
-        assert.deepEqual(sb.buffer, fixtures.bufferOne);
+        assert.deepEqual(sb.string(), fixtures.bufferOne.join(''));
     });
     it('Should concatenate parameters with arrays and functions', function() {
         var sb = new StringBuilder();
@@ -21,6 +21,6 @@ describe('StringBuilder #cat', function() {
             .cat(() => 'three')
             .cat(['four', () => 'five']);
 
-        assert.deepEqual(sb.buffer, fixtures.numbers);
+        assert.deepEqual(sb.string(), fixtures.numbers.join(''));
     });
 });
