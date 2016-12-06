@@ -5,7 +5,7 @@
 Method to add values to the buffer
 - **Sintax**
     ```js
-        var sb = tringBuilder();
+        var sb = stringBuilder();
         sb.cat('hello');
         sb.cat('Javascript', 'crazy', 'world').cat('!!!');
         sb.cat(['nestedValue1', 'nestedValue2']).cat(() => 'Hello my Function');
