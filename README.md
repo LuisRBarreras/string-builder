@@ -2,7 +2,7 @@
  **Exercise to create a tool to improve the concatenation of strings.**
 
 ##  cat(value1[, value2 [,valueN]])
-Method to add values to the buffer
+Method to add values to the buffer of the StringBuilder.
 - **Sintax**
     ```js
         var sb = stringBuilder();
