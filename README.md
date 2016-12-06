@@ -42,3 +42,19 @@ Method that concatenates the same string a given number of times.
         * string values
     * howManyTimes
         * number of times to repeat string
+
+
+## catIf(args1[,argsN], flag)
+Method that performs string concatenation only if the flag is true.
+- **Sintax**
+    ```js
+         sb.cat('Hello')
+            .catIf('EveryOne', myMood === 'happy');
+    ```
+
+- **Parameters**
+    * args
+        * string values
+    * flag
+        * boolean value
+

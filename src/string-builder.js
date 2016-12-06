@@ -44,3 +44,14 @@ StringBuilder.prototype.rep = function(...args) {
 
     return this;
 };
+
+StringBuilder.prototype.catIf = function(...args) {
+    var buffer = this.buffer;
+    var flag = args.pop();
+
+    if (flag) {
+        args.forEach(element => buffer.push(element));
+    }
+
+    return this;
+};
