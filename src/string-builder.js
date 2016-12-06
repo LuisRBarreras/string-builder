@@ -28,3 +28,19 @@ StringBuilder.prototype.cat = function(){
 StringBuilder.prototype.string = function() {
     return this.buffer.join('');
 };
+
+StringBuilder.prototype.rep = function(...args) {
+    var buffer = this.buffer;
+    var howManyTimes = args.pop();
+
+    if(typeof howManyTimes !== 'number') {
+        throw new TypeError('Expected a number');
+    }
+
+    let callback = element => buffer.push(element);
+    for(let i=0; i < howManyTimes; i++) {
+       args.forEach(callback);
+    }
+
+    return this;
+};
