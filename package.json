@@ -1,0 +1,28 @@
+{
+  "name": "string-builder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/string-builder.js",
+  "scripts": {
+    "build": "jshint src/string-builder.js",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuisRBarreras/string-builder.git"
+  },
+  "author": "Luis Barreras <lrbs0190@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LuisRBarreras/string-builder/issues"
+  },
+  "homepage": "https://github.com/LuisRBarreras/string-builder#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "jsdoc": "^3.4.3",
+    "jshint": "^2.9.4",
+    "jsonfile": "^2.4.0",
+    "mocha": "^3.1.2",
+    "sinon": "^1.17.6"
+  }
+}
