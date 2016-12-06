@@ -23,3 +23,4 @@ This method returns a concatenated string of all the parameters that are in the 
         sb.cat('hello', '!!');
         sb.string(); // 'hello!!'
     ```
+
