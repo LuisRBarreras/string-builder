@@ -10,6 +10,7 @@ Method to add values to the buffer
         sb.cat('Javascript', 'crazy', 'world').cat('!!!');
         sb.cat(['nestedValue1', 'nestedValue2']).cat(() => 'Hello my Function');
     ```
+
 - **Paramters**
     * values
         * Could be strings, arrays and functions.
