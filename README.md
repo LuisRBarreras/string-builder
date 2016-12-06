@@ -39,6 +39,6 @@ Method that concatenates the same string a given number of times.
 
 - **Parameters**
     * args
-        * Coulbe be strings
+        * string values
     * howManyTimes
         * number of times to repeat string
