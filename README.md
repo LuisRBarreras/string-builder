@@ -17,10 +17,13 @@ Method to add values to the buffer of the StringBuilder.
 
 ## string()
 This method returns a concatenated string of all the parameters that are in the buffer.
+
 - **Sintax**
+
     ```js
         var sb = stringBuilder();
         sb.cat('hello', '!!');
         sb.string(); // 'hello!!'
     ```
+
 
