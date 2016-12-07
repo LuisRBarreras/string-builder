@@ -25,6 +25,17 @@ describe('StringBuilder #rep', function() {
         assert.deepEqual(sb.string(), 'Can I go,please please ???');
     });
 
+    it('Should add parameters n times with arrays and functions', function() {
+        var sb = new StringBuilder();
+
+        sb.cat('Can I go,')
+            .rep(['please '], 2)
+            .rep('?',3)
+            .rep(()=> [' Thanks'], 1)
+
+        assert.deepEqual(sb.string(), 'Can I go,please please ??? Thanks');
+    });
+
     it('Should throw error for howManyTimes not a number', function() {
         var sb = new StringBuilder();
         function callback() {
