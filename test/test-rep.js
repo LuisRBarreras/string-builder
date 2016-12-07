@@ -38,10 +38,7 @@ describe('StringBuilder #rep', function() {
 
     it('Should throw error for howManyTimes not a number', function() {
         var sb = new StringBuilder();
-        function callback() {
-            sb.rep('error');
-        }
         
-        assert.throws(callback, TypeError);
+        assert.throws(() => sb.rep('error'), TypeError);
     });
 });
