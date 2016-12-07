@@ -46,11 +46,10 @@ StringBuilder.prototype.rep = function(...args) {
 };
 
 StringBuilder.prototype.catIf = function(...args) {
-    var buffer = this.buffer;
     var flag = args.pop();
 
     if (flag) {
-        args.forEach(element => buffer.push(element));
+        args.forEach(element => this.cat(element));
     }
 
     return this;
