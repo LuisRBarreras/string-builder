@@ -12,7 +12,7 @@ describe('StringBuilder #rep', function() {
 
         sb.rep('hello','world', 2);
 
-        assert.deepEqual(sb.string(), fixtures.twiceElements.join(''));
+        assert.equal(sb.string(), fixtures.twiceElements.join(''));
     });
 
     it('Should add parameters n times and using chaining patters', function() {
@@ -22,7 +22,7 @@ describe('StringBuilder #rep', function() {
             .rep('please ', 2)
             .rep('?',3)
 
-        assert.deepEqual(sb.string(), 'Can I go,please please ???');
+        assert.equal(sb.string(), 'Can I go,please please ???');
     });
 
     it('Should add parameters n times with arrays and functions', function() {
@@ -33,7 +33,7 @@ describe('StringBuilder #rep', function() {
             .rep('?',3)
             .rep(()=> [' Thanks'], 1)
 
-        assert.deepEqual(sb.string(), 'Can I go,please please ??? Thanks');
+        assert.equal(sb.string(), 'Can I go,please please ??? Thanks');
     });
 
     it('Should throw error for howManyTimes not a number', function() {

@@ -37,11 +37,10 @@ StringBuilder.prototype.rep = function(...args) {
         throw new TypeError('Expected a number');
     }
 
-    let callback = element => this.cat(element);
     for (let i=0; i < howManyTimes; i++) {
-       args.forEach(callback);
+       this.cat(args);
     }
-
+    
     return this;
 };
 
