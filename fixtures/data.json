@@ -1,4 +1,5 @@
 {
     "bufferOne": ["Hello", "CAT"],
-    "numbers": ["one", "two", "three", "four", "five"]
+    "numbers": ["one", "two", "three", "four", "five"],
+    "twiceElements": ["hello","world", "hello", "world"]
 }
