@@ -15,7 +15,7 @@ describe('StringBuilder #catIf', function() {
             .catIf('Everyone', myMood === 'happy')
             .catIf('Everyone', myMood === 'angry');
         
-        assert.deepEqual(sb.string(), 'Hello Everyone');
+        assert.equal(sb.string(), 'Hello Everyone');
     });
     
     it('Should concatenate only if flag is true and support arrays, functions', function() {
@@ -27,6 +27,6 @@ describe('StringBuilder #catIf', function() {
             .catIf([() => 1], myMood === 'happy')
             .catIf('Everyone', myMood === 'angry');
         
-        assert.deepEqual(sb.string(), 'Hello EveryoneEveryone1');
+        assert.equal(sb.string(), 'Hello EveryoneEveryone1');
     });
 });

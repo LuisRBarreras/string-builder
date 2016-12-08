@@ -49,7 +49,7 @@ StringBuilder.prototype.catIf = function(...args) {
     var flag = args.pop();
 
     if (flag) {
-        args.forEach(element => this.cat(element));
+        this.cat(args);
     }
 
     return this;
