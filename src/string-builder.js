@@ -82,8 +82,7 @@ StringBuilder.prototype.wrap = function(prefix, suffix) {
     return this;        
 };
 
-StringBuilder.prototype.end = function(deep) {
-     
+StringBuilder.prototype.end = function(deep) {   
     if(deep) {
         let aux = this.decorators.pop();
         //This is part is going to change with the implementation of prefix and suffix
