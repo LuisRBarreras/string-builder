@@ -2,10 +2,17 @@ module.exports = StringBuilder;
 
 function StringBuilder(){
     this.buffer = [];
+    this.prefix = null;
+    this.suffix = null;
+    this.decorators = [];
 }
 
 StringBuilder.prototype.cat = function(){
     var buffer = this.buffer;
+    var prefix = this.prefix;
+    var suffix = this.suffix;
+    var cat = this.cat;
+
     concat(...arguments);
     return this;
 
@@ -19,7 +26,15 @@ StringBuilder.prototype.cat = function(){
             } else if (typeof element === 'function') {
                 concat(element());
             } else {
+                if (prefix) {
+                    cat.call({ buffer: buffer }, prefix);
+                }
+
                 buffer.push(element);
+
+                if (suffix) {
+                    cat.call({ buffer: buffer }, suffix);
+                }
             }
         }
     }
@@ -51,5 +66,36 @@ StringBuilder.prototype.catIf = function(...args) {
         this.cat(args);
     }
 
+    return this;
+};
+
+StringBuilder.prototype.wrap = function(prefix, suffix) {
+    this.decorators.push('wrap');
+    if (prefix) {
+        this.prefix = prefix;
+    }
+
+    if (suffix) {
+        this.suffix = suffix;
+    }
+
+    return this;        
+};
+
+StringBuilder.prototype.end = function(deep) {
+     
+    if(deep) {
+        let aux = this.decorators.pop();
+        //This is part is going to change with the implementation of prefix and suffix
+        if(aux && aux === 'wrap') {
+            this.prefix = null;
+            this.suffix = null;
+        }
+    } else {
+        this.decorators = [];
+        this.prefix = null;
+        this.suffix = null;
+    }
+    
     return this;
 };
