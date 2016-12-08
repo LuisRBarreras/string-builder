@@ -43,3 +43,13 @@ StringBuilder.prototype.rep = function(...args) {
     
     return this;
 };
+
+StringBuilder.prototype.catIf = function(...args) {
+    var flag = args.pop();
+
+    if (flag) {
+        this.cat(args);
+    }
+
+    return this;
+};
