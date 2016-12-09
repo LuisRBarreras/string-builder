@@ -2,15 +2,15 @@ module.exports = StringBuilder;
 
 function StringBuilder(){
     this.buffer = [];
-    this.prefix = null;
-    this.suffix = null;
+    this._prefix = null;
+    this._suffix = null;
     this.decorators = [];
 }
 
 StringBuilder.prototype.cat = function(){
     var buffer = this.buffer;
-    var prefix = this.prefix;
-    var suffix = this.suffix;
+    var _prefix = this._prefix;
+    var _suffix = this._suffix;
     var cat = this.cat;
 
     concat(...arguments);
@@ -26,14 +26,14 @@ StringBuilder.prototype.cat = function(){
             } else if (typeof element === 'function') {
                 concat(element());
             } else {
-                if (prefix) {
-                    cat.call({ buffer: buffer }, prefix);
+                if (_prefix) {
+                    cat.call({ buffer: buffer }, _prefix);
                 }
 
                 buffer.push(element);
 
-                if (suffix) {
-                    cat.call({ buffer: buffer }, suffix);
+                if (_suffix) {
+                    cat.call({ buffer: buffer }, _suffix);
                 }
             }
         }
@@ -72,35 +72,53 @@ StringBuilder.prototype.catIf = function(...args) {
 StringBuilder.prototype.wrap = function(prefix, suffix) {
     this.decorators.push('wrap');
     if (prefix) {
-        this.prefix = prefix;
+        this._prefix = prefix;
     }
 
     if (suffix) {
-        this.suffix = suffix;
+        this._suffix = suffix;
     }
 
     return this;        
 };
 
+StringBuilder.prototype.prefix = function(...args) {
+    this.decorators.push('prefix');
+    this._prefix = args;
+
+    return this;
+};
+
+StringBuilder.prototype.suffix = function(...args) {
+    this.decorators.push('suffix');
+    this._suffix = args;
+
+    return this;
+};
+
 StringBuilder.prototype.end = function(deep) {
     if (deep) {
-        for (let i=0; i < deep && decorators.length > 0; i++) {
+        for (let i=0; i < deep && this.decorators.length > 0; i++) {
             let aux = this.decorators.pop();
-             _cleanDecorators(aux);
+             _cleanDecorators.call(this, aux);
         }        
     } else {
         this.decorators = [];
-        this.prefix = null;
-        this.suffix = null;
+        this._prefix = null;
+        this._suffix = null;
     }    
 
     return this;
 
     function _cleanDecorators(element) {
-        if(element === 'wrap') {
-            this.prefix = null;
-            this.suffix = null;
-        }   
+        if (element === 'wrap') {
+            this._prefix = null;
+            this._suffix = null;
+        } else if (element === 'prefix') {
+            this._prefix = null;
+        } else if (element === 'suffix') {
+            this._suffix = null;
+        }
     }    
 };
 
