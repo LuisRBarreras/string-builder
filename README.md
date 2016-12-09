@@ -78,3 +78,29 @@ Everything added to StringBuilder after this method is called shall be be surrou
 
 ## end()
 Cancel the current or last effect that was added to the StringBuilder by calling any of the folloowing methods: wrap.
+
+## prefix(args)
+Everything added after calling this method shall be prefix with the specified arguments.
+- **Sintax**
+    ```js
+         sb.prefix('##')
+            .cat('YEI')
+            .cat(['!'])
+            .string(); // "##YEI##!";
+    ```
+- **Parameters**
+    * args
+        * strings, functions, arrays
+
+## suffix(args)
+Everything added after calling this method shall be suffix with the specified arguments.
+- **Sintax**
+    ```js
+     sb.suffix('\n')
+            .cat('Hello')
+            .cat(['World'])
+            .string(); // Hello\nWrold\n
+    ```
+- **Parameters**
+    * args
+        * strings, functions, arrays
