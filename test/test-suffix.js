@@ -20,4 +20,18 @@ describe('StringBuilder #suffix', function() {
           
        assert.equal(expected, sb.string());     
    });
+
+    it('Should post append values wih multiple suffix', function(){
+        var sb = new StringBuilder();
+        var expected = "Hello;\nWorld;\nEND\n";
+       
+        sb.suffix('\n')
+                .suffix(';')
+                .cat('Hello')
+                .cat(['World'])
+                .end(1)
+                .cat('END')
+                
+        assert.equal(expected, sb.string());     
+   });
 });
