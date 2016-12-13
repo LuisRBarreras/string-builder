@@ -7,7 +7,7 @@ var file = './fixtures/data.json';
 var fixtures = jsonfile.readFileSync(file);
 
 describe('StringBuilder #suspend', function() {
-    it('Iterate over collection', function(){
+    it('Suspend wrap', function(){
         var sb = new StringBuilder();
         var sections = ['section-1', 'section-2', 'section-3'];
         var expected = '<row>section-1 section-2 section-3 <row>';
