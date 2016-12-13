@@ -2,15 +2,29 @@ module.exports = StringBuilder;
 
 function StringBuilder(){
     this.buffer = [];
-    this._prefix = null;
-    this._suffix = null;
     this.decorators = [];
+    
+}
+
+function Decorator(name, ...values) {
+    this.name = name;
+    this.values= values;
+
+    this.execute = function(prefixes, suffixes) {
+        if (this.name === 'wrap') {
+                prefixes.push(this.values[0]);
+                suffixes.push(this.values[1]);
+            } else if (this.name === 'prefix') {
+                prefixes.push(this.values);
+            } else if (this.name === 'suffix') {
+                suffixes.push(this.values);
+            }
+    }
 }
 
 StringBuilder.prototype.cat = function(){
     var buffer = this.buffer;
-    var _prefix = this._prefix;
-    var _suffix = this._suffix;
+    var decorators = this.decorators;
     var cat = this.cat;
 
     concat(...arguments);
@@ -25,19 +39,28 @@ StringBuilder.prototype.cat = function(){
                 concat(...element);
             } else if (typeof element === 'function') {
                 concat(element());
+            } else if (decorators && decorators.length > 0) {
+                concatWithDecorators(decorators, element);
             } else {
-                if (_prefix) {
-                    cat.call({ buffer: buffer }, _prefix);
-                }
-
                 buffer.push(element);
-
-                if (_suffix) {
-                    cat.call({ buffer: buffer }, _suffix);
-                }
             }
         }
     }
+
+    function concatWithDecorators(decorators, element) {
+        var prefixes = [];
+        var suffixes = [];
+        
+        for (let i = decorators.length - 1; i >= 0; i--) {
+            let decorator = decorators[i];
+            decorator.execute(prefixes, suffixes);
+        }
+
+        cat.call({ buffer : buffer}, prefixes.reverse());
+        cat.call({ buffer: buffer}, element);
+        cat.call({ buffer: buffer}, suffixes); 
+    }
+
 };
 
 StringBuilder.prototype.string = function() {
@@ -70,56 +93,32 @@ StringBuilder.prototype.catIf = function(...args) {
 };
 
 StringBuilder.prototype.wrap = function(prefix, suffix) {
-    this.decorators.push('wrap');
-    if (prefix) {
-        this._prefix = prefix;
-    }
-
-    if (suffix) {
-        this._suffix = suffix;
-    }
+    wrap = new Decorator('wrap', prefix, suffix);
+    this.decorators.push(wrap);
 
     return this;        
 };
 
 StringBuilder.prototype.prefix = function(...args) {
-    this.decorators.push('prefix');
-    this._prefix = args;
+    prefix = new Decorator('prefix', args);
+    this.decorators.push(prefix);
 
     return this;
 };
 
 StringBuilder.prototype.suffix = function(...args) {
-    this.decorators.push('suffix');
-    this._suffix = args;
+    suffix = new Decorator('suffix', args);
+    this.decorators.push(suffix);
 
     return this;
 };
 
-StringBuilder.prototype.end = function(deep) {
-    if (deep) {
-        for (let i=0; i < deep && this.decorators.length > 0; i++) {
-            let aux = this.decorators.pop();
-             _cleanDecorators.call(this, aux);
-        }        
-    } else {
-        this.decorators = [];
-        this._prefix = null;
-        this._suffix = null;
-    }    
-
-    return this;
-
-    function _cleanDecorators(element) {
-        if (element === 'wrap') {
-            this._prefix = null;
-            this._suffix = null;
-        } else if (element === 'prefix') {
-            this._prefix = null;
-        } else if (element === 'suffix') {
-            this._suffix = null;
-        }
-    }    
+StringBuilder.prototype.end = function(deep=1) {
+    for (let i=0; i < deep && this.decorators.length > 0; i++) {
+        this.decorators.pop();
+    }        
+        
+    return this;    
 };
 
 StringBuilder.prototype.each = function(collection, callback) {

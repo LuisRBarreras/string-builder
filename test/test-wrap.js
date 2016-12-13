@@ -32,8 +32,28 @@ describe('StringBuilder #wrap', function() {
             }(), '.- '], '</li>\n')
             .rep('list item', 2)
             .end()
-            .cat('</ul>')
-
+            .cat('</ul>');
+            
             assert.equal(expected, sb.string());
+   });
+
+    it('Wrap with nested values and mixing with suffix', function() {
+        var sb = new StringBuilder();
+        var wrap1 = ['<strong>', '</strong>'];
+        var wrap2 = ['-', '-'];
+        var expected = '<strong>-Hello-</strong>\n<strong>-World-</strong>\n<strong>YEI</strong>\n';
+
+        var result = sb.suffix('\n')
+            .wrap(...wrap1)
+            .wrap(...wrap2)
+            .cat('Hello')
+            .cat('World')
+            .end(1)
+            .cat('YEI')
+            .string();
+
+        assert.equal(expected, result);
+    
+
    });
 });
