@@ -104,3 +104,28 @@ Everything added after calling this method shall be suffix with the specified ar
 - **Parameters**
     * args
         * strings, functions, arrays
+
+## each(collection, callback)
+Allows the iteration over an array of values without breaking the cascasde or chain.
+It shall to iterate over each value on the array and then call the callback function.
+The each method will call the callback setting the context(_this_) referense to the
+StringBuilder and will send 3 three parameters _value_ , _index_  and _args_ .
+- **Sintax**
+    ```js
+        sb.each(people, function(value, index, people) {
+                this
+                    .cat('<tr>')
+                    .prefix('\t')
+                    .cat('<td>' + value.name + '</td>')
+                    .cat('<td>' + value.age + '</td>')
+                    .end()
+                    .cat('</tr>')
+            });
+    ```
+
+- **Parameters**
+    * collection
+        * array
+    * callback
+        * function
+            * with parameters value, index and people

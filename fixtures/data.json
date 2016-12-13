@@ -1,5 +1,9 @@
 {
     "bufferOne": ["Hello", "CAT"],
     "numbers": ["one", "two", "three", "four", "five"],
-    "twiceElements": ["hello","world", "hello", "world"]
+    "twiceElements": ["hello","world", "hello", "world"],
+    "people" : [
+            { "name": "pedro", "age": 30},
+            { "name": "juan", "age": 15}
+    ]
 }

@@ -122,3 +122,8 @@ StringBuilder.prototype.end = function(deep) {
     }    
 };
 
+StringBuilder.prototype.each = function(collection, callback) {
+    collection.forEach(callback, this);
+
+    return this;
+};
