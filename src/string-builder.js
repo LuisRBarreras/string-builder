@@ -114,3 +114,8 @@ StringBuilder.prototype.end = function(deep=1) {
     return this;    
 };
 
+StringBuilder.prototype.each = function(collection, callback) {
+    collection.forEach(callback, this);
+
+    return this;
+};
