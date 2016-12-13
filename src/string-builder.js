@@ -5,19 +5,13 @@ function StringBuilder(){
     this.decorators = [];
 }
 
-function Decorator(name, ...values) {
-    this.name = name;
-    this.values= values;
+function Decorator(prefix, suffix) {
+    this.prefix = prefix;
+    this.suffix = suffix;
 
     this.execute = function(prefixes, suffixes) {
-        if (this.name === 'wrap') {
-                prefixes.push(this.values[0]);
-                suffixes.push(this.values[1]);
-            } else if (this.name === 'prefix') {
-                prefixes.push(this.values);
-            } else if (this.name === 'suffix') {
-                suffixes.push(this.values);
-            }
+        prefixes.unshift(prefix);
+        suffixes.push(suffix);
     };
 }
 
@@ -54,7 +48,7 @@ StringBuilder.prototype.cat = function(){
             decorator.execute(prefixes, suffixes);
         }
 
-        cat.call({ buffer : buffer}, prefixes.reverse());
+        cat.call({ buffer : buffer}, prefixes);
         cat.call({ buffer: buffer}, element);
         cat.call({ buffer: buffer}, suffixes); 
     }
@@ -91,21 +85,21 @@ StringBuilder.prototype.catIf = function(...args) {
 };
 
 StringBuilder.prototype.wrap = function(prefix, suffix) {
-    wrap = new Decorator('wrap', prefix, suffix);
+    var wrap = new Decorator(prefix, suffix);
     this.decorators.push(wrap);
 
     return this;        
 };
 
 StringBuilder.prototype.prefix = function(...args) {
-    prefix = new Decorator('prefix', args);
+    var prefix = new Decorator(args, null);
     this.decorators.push(prefix);
 
     return this;
 };
 
 StringBuilder.prototype.suffix = function(...args) {
-    suffix = new Decorator('suffix', args);
+    var suffix = new Decorator(null, args);
     this.decorators.push(suffix);
 
     return this;
