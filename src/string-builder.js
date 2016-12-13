@@ -138,3 +138,15 @@ StringBuilder.prototype.suspend = function() {
 
     return this;
 };
+
+StringBuilder.prototype.when = function(expression, thenArgs, otherwiseArgs) {
+    var result = typeof expression === 'function' ? expression() : expression;
+
+    if(result) {
+        this.cat(thenArgs);
+    } else {
+        this.cat(otherwiseArgs);
+    }
+
+    return this;
+};

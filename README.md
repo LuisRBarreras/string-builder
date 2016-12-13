@@ -133,3 +133,28 @@ StringBuilder and will send 3 three parameters _value_ , _index_  and _args_ .
 ## suspend()
 This method suspend or pause the applied effects(prefix, suffix and wrap)
 and it's influence will finish with the call to end() method.
+
+## when(expression, thenArgs, otherwiseArgs)
+This method evaluate the expression and call the _cat_() method with
+the _thenArgs_ or _otherwiseArgs_ depending on the result of evaluation
+
+- **Sintax**
+    ```js
+        sb.each(fixtures.peopleWithGender, function(person){
+                this.when(person.sex == 'm', 
+                    function(){
+                        return person.name + ' is male';
+                    }, 
+                    [ person.name + ' is female' ]
+                );
+            });
+    ```
+
+- **Parameters**
+    * expresion
+        * function or expressin
+    * thenArgs
+        * string, array, function
+    * otherwiseArgs
+        * string, array, function
+    
