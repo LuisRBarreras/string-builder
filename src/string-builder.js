@@ -3,7 +3,6 @@ module.exports = StringBuilder;
 function StringBuilder(){
     this.buffer = [];
     this.decorators = [];
-    
 }
 
 function Decorator(name, ...values) {
@@ -26,7 +25,6 @@ StringBuilder.prototype.cat = function(){
     var buffer = this.buffer;
     var decorators = this.decorators;
     var cat = this.cat;
-
     concat(...arguments);
     return this;
 
@@ -117,12 +115,26 @@ StringBuilder.prototype.end = function(deep=1) {
     for (let i=0; i < deep && this.decorators.length > 0; i++) {
         this.decorators.pop();
     }        
-        
+    
+    if (this.suspendedDecorators && this.suspendedDecorators.length > 0) {
+        this.decorators = this.suspendedDecorators;
+    }
+    
     return this;    
 };
 
 StringBuilder.prototype.each = function(collection, callback) {
     collection.forEach(callback, this);
+
+    return this;
+};
+
+StringBuilder.prototype.suspend = function() {
+    if (this.decorators && this.decorators.length > 0) {
+        this.suspendedDecorators = this.decorators;
+        this.decorators = [];
+    }
+    
 
     return this;
 };

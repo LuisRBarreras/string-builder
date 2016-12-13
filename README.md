@@ -129,3 +129,7 @@ StringBuilder and will send 3 three parameters _value_ , _index_  and _args_ .
     * callback
         * function
             * with parameters value, index and people
+
+## suspend()
+This method suspend or pause the applied effects(prefix, suffix and wrap)
+and it's influence will finish with the call to end() method.
