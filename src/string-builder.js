@@ -19,7 +19,7 @@ function Decorator(name, ...values) {
             } else if (this.name === 'suffix') {
                 suffixes.push(this.values);
             }
-    }
+    };
 }
 
 StringBuilder.prototype.cat = function(){
