@@ -53,7 +53,5 @@ describe('StringBuilder #wrap', function() {
             .string();
 
         assert.equal(expected, result);
-    
-
    });
 });
