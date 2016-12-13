@@ -108,7 +108,7 @@ Everything added after calling this method shall be suffix with the specified ar
 ## each(collection, callback)
 Allows the iteration over an array of values without breaking the cascasde or chain.
 It shall to iterate over each value on the array and then call the callback function.
-The each method will call the callback setting the context(_this_) referense to the
+The each method will call the callback setting the context(_this_) reference to the
 StringBuilder and will send 3 three parameters _value_ , _index_  and _args_ .
 - **Sintax**
     ```js
