@@ -3,11 +3,23 @@ module.exports = StringBuilder;
 function StringBuilder(){
     this.buffer = [];
     this.decorators = [];
+    
 }
 
 function Decorator(name, ...values) {
     this.name = name;
     this.values= values;
+
+    this.execute = function(prefixes, suffixes) {
+        if (this.name === 'wrap') {
+                prefixes.push(this.values[0]);
+                suffixes.push(this.values[1]);
+            } else if (this.name === 'prefix') {
+                prefixes.push(this.values);
+            } else if (this.name === 'suffix') {
+                suffixes.push(this.values);
+            }
+    }
 }
 
 StringBuilder.prototype.cat = function(){
@@ -41,14 +53,7 @@ StringBuilder.prototype.cat = function(){
         
         for (let i = decorators.length - 1; i >= 0; i--) {
             let decorator = decorators[i];
-            if (decorator.name === 'wrap') {
-                prefixes.push(decorator.values[0]);
-                suffixes.push(decorator.values[1]);
-            } else if (decorator.name === 'prefix') {
-                prefixes.push(decorator.values);
-            } else if (decorator.name === 'suffix') {
-                suffixes.push(decorator.values);
-            }
+            decorator.execute(prefixes, suffixes);
         }
 
         cat.call({ buffer : buffer}, prefixes.reverse());
@@ -108,15 +113,11 @@ StringBuilder.prototype.suffix = function(...args) {
     return this;
 };
 
-StringBuilder.prototype.end = function(deep) {
-    if (deep) {
-        for (let i=0; i < deep && this.decorators.length > 0; i++) {
-            this.decorators.pop();
-        }        
-    } else {
-        this.decorators = [];
-    }    
-
+StringBuilder.prototype.end = function(deep=1) {
+    for (let i=0; i < deep && this.decorators.length > 0; i++) {
+        this.decorators.pop();
+    }        
+        
     return this;    
 };
 
