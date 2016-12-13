@@ -4,8 +4,7 @@
   "description": "",
   "main": "src/string-builder.js",
   "scripts": {
-    "build": "jshint src/string-builder.js",
-    "test": "mocha"
+    "test": "jshint src/string-builder.js && mocha"
   },
   "repository": {
     "type": "git",
