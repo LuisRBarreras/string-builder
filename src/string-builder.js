@@ -104,9 +104,6 @@ StringBuilder.prototype.suffix = function(...args) {
 };
 
 StringBuilder.prototype.end = function(deep=1) {
-    var lengthPrefixes = this.prefixes.length;
-    var lengthSuffixes = this.suffixes.length;
-
     for (let i=0; i < deep; i++) {
         this.prefixes.shift();
         this.suffixes.pop();
@@ -124,5 +121,12 @@ StringBuilder.prototype.each = function(collection, callback) {
 StringBuilder.prototype.suspend = function() {
     this.prefixes.unshift(false);
     this.suffixes.push(false);
+    
     return this;
+};
+
+StringBuilder.prototype.when = function(expression, thenArgs, otherwiseArgs) {
+    var result = typeof expression === 'function' ? expression.call(this) : expression;
+
+    return this.cat(expression ? thenArgs : otherwiseArgs);
 };
