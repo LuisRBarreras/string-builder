@@ -39,19 +39,21 @@ describe('StringBuilder #wrap', function() {
 
     it('Wrap with nested values and mixing with suffix', function() {
         var sb = new StringBuilder();
-        var wrap1 = ['<strong>', '</strong>'];
-        var wrap2 = ['-', '-'];
-        var expected = '<strong>-Hello-</strong>\n<strong>-World-</strong>\n<strong>YEI</strong>\n';
-
-        var result = sb.suffix('\n')
-            .wrap(...wrap1)
-            .wrap(...wrap2)
-            .cat('Hello')
-            .cat('World')
-            .end(1)
-            .cat('YEI')
-            .string();
-
-        assert.equal(expected, result);
+        var expected = "<ul>\n"+
+            "<li>1.- list item</li>\n"+
+            "<li>2.- list item</li>\n"+
+            "<li>3.- list item</li>\n"+
+            "<li>4.- list item</li>\n"+
+            "<li>5.- list item</li>\n"+
+        "</ul>\n";
+        sb
+            .suffix('\n')
+            .cat('<ul>')
+            .wrap(['<li>', function(){ var count = 0;
+                    return function() { return count += 1; }}(), '.- '], '</li>')
+            .rep('list item', 5)
+            .end()
+            .cat('</ul>')
+        assert.equal(expected, sb.string());
    });
 });
