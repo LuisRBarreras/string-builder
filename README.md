@@ -3,7 +3,7 @@
 
 ##  cat(value1[, value2 [,valueN]])
 Method to add values to the buffer of the StringBuilder.
-- **Sintax**
+- **Syntax**
     ```js
         var sb = stringBuilder();
         sb.cat('hello');
@@ -18,7 +18,7 @@ Method to add values to the buffer of the StringBuilder.
 ## string()
 This method returns a concatenated string of all the parameters that are in the buffer.
 
-- **Sintax**
+- **Syntax**
 
     ```js
         var sb = stringBuilder();
@@ -29,7 +29,7 @@ This method returns a concatenated string of all the parameters that are in the 
 
 ## rep(args1[, argN] ,howManyTimes)
 Method that concatenates the same string a given number of times.
-- **Sintax**
+- **Syntax**
     ```js
         var sb = new StringBuilder();
         sb.cat('Can I go,')
@@ -46,7 +46,7 @@ Method that concatenates the same string a given number of times.
 
 ## catIf(args1[,argsN], flag)
 Method that performs string concatenation only if the flag is true.
-- **Sintax**
+- **Syntax**
     ```js
          sb.cat('Hello')
             .catIf('EveryOne', myMood === 'happy');
@@ -61,7 +61,7 @@ Method that performs string concatenation only if the flag is true.
 
 ## wrap(prefix, suffix)
 Everything added to StringBuilder after this method is called shall be be surrounded by prefix and suffix arguments.
-- **Sintax**
+- **Syntax**
     ```js
         sb.cat('<ul>', '\n')
             .wrap('<li>', ['</li>' ,'\n'])
@@ -81,7 +81,7 @@ Cancel the current or last effect that was added to the StringBuilder by calling
 
 ## prefix(args)
 Everything added after calling this method shall be prefix with the specified arguments.
-- **Sintax**
+- **Syntax**
     ```js
          sb.prefix('##')
             .cat('YEI')
@@ -95,7 +95,7 @@ Everything added after calling this method shall be prefix with the specified ar
 
 ## suffix(args)
 Everything added after calling this method shall be suffix with the specified arguments.
-- **Sintax**
+- **Syntax**
     ```js
      sb.suffix('\n')
             .cat('Hello')
@@ -112,7 +112,7 @@ Allows the iteration over an array of values without breaking the cascasde or ch
 It shall to iterate over each value on the array and then call the callback function.
 The each method will call the callback setting the context(_this_) reference to the
 StringBuilder and will send 3 three parameters _value_ , _index_  and _args_ .
-- **Sintax**
+- **Syntax**
     ```js
         sb.each(people, function(value, index, people) {
                 this
@@ -140,7 +140,7 @@ and it's influence will finish with the call to end() method.
 This method evaluate the expression and call the _cat_() method with
 the _thenArgs_ or _otherwiseArgs_ depending on the result of evaluation
 
-- **Sintax**
+- **Syntax**
     ```js
         sb.suffix('\n')
             .wrap('<p>', '</p>')
