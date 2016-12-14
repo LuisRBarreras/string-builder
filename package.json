@@ -1,5 +1,5 @@
 {
-  "name": "string-builder",
+  "name": "ns-string-builder",
   "version": "1.0.0",
   "description": "",
   "main": "src/string-builder.js",
