@@ -140,14 +140,13 @@ the _thenArgs_ or _otherwiseArgs_ depending on the result of evaluation
 
 - **Sintax**
     ```js
-        sb.each(fixtures.peopleWithGender, function(person){
-                this.when(person.sex == 'm', 
-                    function(){
-                        return person.name + ' is male';
-                    }, 
-                    [ person.name + ' is female' ]
-                );
+        sb.suffix('\n')
+            .wrap('<p>', '</p>')
+            .each(fixtures.peopleWithGender, function(person) {
+                this.when(person.sex == 'm', () => { return person.name + ' is male' }, [ person.name,' is female' ]);
             });
+
+        sb.string() // <p>pedro is male</p>\n<p>leticia is female</p>\n<p>pablo is male</p>\n;
     ```
 
 - **Parameters**

@@ -13,13 +13,8 @@ describe('StringBuilder #when', function() {
 
         sb.suffix('\n')
             .wrap('<p>', '</p>')
-            .each(fixtures.peopleWithGender, function(person){
-                this.when(person.sex == 'm', 
-                    function(){
-                        return person.name + ' is male';
-                    }, 
-                    [ person.name + ' is female' ]
-                );
+            .each(fixtures.peopleWithGender, function(person) {
+                this.when(person.sex == 'm', () => { return person.name + ' is male' }, [ person.name,' is female' ]);
             });
 
         assert.equal(expected, sb.string());
