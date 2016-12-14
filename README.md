@@ -88,6 +88,7 @@ Everything added after calling this method shall be prefix with the specified ar
             .cat(['!'])
             .string(); // "##YEI##!";
     ```
+
 - **Parameters**
     * args
         * strings, functions, arrays
@@ -101,6 +102,7 @@ Everything added after calling this method shall be suffix with the specified ar
             .cat(['World'])
             .string(); // Hello\nWrold\n
     ```
+
 - **Parameters**
     * args
         * strings, functions, arrays
