@@ -2,30 +2,18 @@ module.exports = StringBuilder;
 
 function StringBuilder(){
     this.buffer = [];
-    this.decorators = [];
-}
-
-function Decorator(name, ...values) {
-    this.name = name;
-    this.values= values;
-
-    this.execute = function(prefixes, suffixes) {
-        if (this.name === 'wrap') {
-                prefixes.push(this.values[0]);
-                suffixes.push(this.values[1]);
-            } else if (this.name === 'prefix') {
-                prefixes.push(this.values);
-            } else if (this.name === 'suffix') {
-                suffixes.push(this.values);
-            }
-    };
+    this.prefixes = [];
+    this.suffixes = [];
 }
 
 StringBuilder.prototype.cat = function(){
     var buffer = this.buffer;
-    var decorators = this.decorators;
     var cat = this.cat;
+    var that = this;
+
+    concatPrefixes(this.prefixes);
     concat(...arguments);
+    concatSuffixes(this.suffixes);
     return this;
 
     function concat(...args) {
@@ -36,29 +24,33 @@ StringBuilder.prototype.cat = function(){
             if (Array.isArray(element)) {
                 concat(...element);
             } else if (typeof element === 'function') {
-                concat(element());
-            } else if (decorators && decorators.length > 0) {
-                concatWithDecorators(decorators, element);
+                concat(element.call(that));
             } else {
                 buffer.push(element);
             }
         }
     }
 
-    function concatWithDecorators(decorators, element) {
-        var prefixes = [];
-        var suffixes = [];
-        
-        for (let i = decorators.length - 1; i >= 0; i--) {
-            let decorator = decorators[i];
-            decorator.execute(prefixes, suffixes);
+    function concatPrefixes(prefixes=[]) {
+        var length = prefixes.length;
+        for (let i =0; i < length; i++) {
+            let prefix = prefixes[i];
+            if (prefix === false) {
+                break;
+            } 
+            concat.call({ buffer : buffer}, prefix);
         }
-
-        cat.call({ buffer : buffer}, prefixes.reverse());
-        cat.call({ buffer: buffer}, element);
-        cat.call({ buffer: buffer}, suffixes); 
     }
 
+    function concatSuffixes(suffixes=[]) {
+        for (let i = suffixes.length - 1; i >= 0; i--) {
+            let suffix = suffixes[i];
+            if (suffix === false) {
+                break;
+            }
+            concat.call({ buffer: buffer}, suffix);
+        }
+    }
 };
 
 StringBuilder.prototype.string = function() {
@@ -91,34 +83,34 @@ StringBuilder.prototype.catIf = function(...args) {
 };
 
 StringBuilder.prototype.wrap = function(prefix, suffix) {
-    wrap = new Decorator('wrap', prefix, suffix);
-    this.decorators.push(wrap);
-
+    this.prefixes.unshift(prefix);
+    this.suffixes.push(suffix);
+    
     return this;        
 };
 
 StringBuilder.prototype.prefix = function(...args) {
-    prefix = new Decorator('prefix', args);
-    this.decorators.push(prefix);
+    this.prefixes.unshift(args);
+    this.suffixes.push(null);
 
     return this;
 };
 
 StringBuilder.prototype.suffix = function(...args) {
-    suffix = new Decorator('suffix', args);
-    this.decorators.push(suffix);
+    this.prefixes.unshift(null);
+    this.suffixes.push(args);
 
     return this;
 };
 
 StringBuilder.prototype.end = function(deep=1) {
-    for (let i=0; i < deep && this.decorators.length > 0; i++) {
-        this.decorators.pop();
+    var lengthPrefixes = this.prefixes.length;
+    var lengthSuffixes = this.suffixes.length;
+
+    for (let i=0; i < deep; i++) {
+        this.prefixes.shift();
+        this.suffixes.pop();
     }        
-    
-    if (this.suspendedDecorators && this.suspendedDecorators.length > 0) {
-        this.decorators = this.suspendedDecorators;
-    }
     
     return this;    
 };
@@ -130,12 +122,8 @@ StringBuilder.prototype.each = function(collection, callback) {
 };
 
 StringBuilder.prototype.suspend = function() {
-    if (this.decorators && this.decorators.length > 0) {
-        this.suspendedDecorators = this.decorators;
-        this.decorators = [];
-    }
-    
-
+    this.prefixes.unshift(false);
+    this.suffixes.push(false);
     return this;
 };
 

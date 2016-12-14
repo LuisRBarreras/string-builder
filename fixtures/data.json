@@ -2,6 +2,7 @@
     "bufferOne": ["Hello", "CAT"],
     "numbers": ["one", "two", "three", "four", "five"],
     "twiceElements": ["hello","world", "hello", "world"],
+    "sections": ["section-1", "section-2", "section-3"],
     "people" : [
             { "name": "pedro", "age": 30},
             { "name": "juan", "age": 15}
