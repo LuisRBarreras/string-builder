@@ -1,8 +1,8 @@
 # StringBuilder
  **Exercise to create a tool to improve the concatenation of strings.**
 
-### Installation
-In a browser:
+## Installation:
+### In a browser:
 ```js
     <script src="dist/string-builder.js"></script>
 ```
