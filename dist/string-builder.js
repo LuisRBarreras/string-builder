@@ -44,7 +44,7 @@ StringBuilder.prototype.cat = function () {
         var prefixes = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
         var length = prefixes.length;
-        for (var i = prefixes.length; i >= 0; i--) {
+        for (var i = 0; i < length; i++) {
             var prefix = prefixes[i];
             if (prefix === false) {
                 break;
@@ -163,4 +163,5 @@ StringBuilder.prototype.when = function (expression, thenArgs, otherwiseArgs) {
 
     return this.cat(expression ? thenArgs : otherwiseArgs);
 };
+
 },{}]},{},[1]);
