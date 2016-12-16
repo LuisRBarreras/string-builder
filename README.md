@@ -1,6 +1,45 @@
 # StringBuilder
  **Exercise to create a tool to improve the concatenation of strings.**
 
+### Installation
+In a browser:
+```js
+    <script src="dist/string-builder.js"></script>
+```
+
+### Using npm:
+```js
+    npm install --save ns-string-builder
+```
+
+### In Node.js:
+```js
+    var StringBuilder = require('ns-string-builder');
+    var sb = new StringBuilder();
+    var paragraphs = ["Why won't the ineffective paradox cruise? A medicine screams next to a class! The lord fulfills the chairman."];
+    sb
+        .cat('<html>')
+        .cat(
+            '<head>',
+            ['<title>', 'Demo String Builder', '</title>'],
+            '</head>'
+        )
+        .cat('<body>')
+        .wrap('<h1>', '</h1>')
+        .cat('Hello World!!')
+        .end()
+        .wrap('<p>', '</p>')
+        .each(paragraphs, function(paragraphs) {
+            this.cat(paragraphs)
+        })
+        .end()
+        .cat('</body>')
+        .cat('</html>');
+
+    sb.string();
+```
+
+
 ##  cat(value1[, value2 [,valueN]])
 Method to add values to the buffer of the StringBuilder.
 - **Syntax**
