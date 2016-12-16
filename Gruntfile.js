@@ -5,7 +5,10 @@ module.exports = function(grunt) {
                 options: {
                     transform: [
                         ["babelify", { "presets": ["es2015"] }]
-                    ]
+                    ],
+                    browserifyOptions: {
+                        standalone: 'StringBuilder'
+                    } 
                 },
                 files: {
                     "./dist/string-builder.js": ["./src/string-builder.js"]
